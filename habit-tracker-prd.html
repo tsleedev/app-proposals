@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker - 상세 기획서 (PRD)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.7;
+    }
+    .hero {
+      background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+    .hero h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; }
+    .hero p { font-size: 1.1rem; opacity: 0.9; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #34c759;
+      border-bottom: 2px solid #34c759;
+      padding-bottom: 10px;
+    }
+    .section h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 20px 0 10px;
+      color: #333;
+    }
+    .section p { color: #555; margin-bottom: 15px; }
+    .section ul, .section ol { padding-left: 25px; color: #444; margin-bottom: 15px; }
+    .section li { margin-bottom: 8px; }
+    
+    .highlight {
+      background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+      color: white;
+      padding: 20px 25px;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    .tech-tag {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 12px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 15px 0;
+      white-space: pre;
+    }
+    
+    .screen-mockup {
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.8rem;
+      white-space: pre;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #34c759, #30d158);
+      border-radius: 3px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      background: #f9f9f9;
+      padding: 15px 20px;
+      border-radius: 12px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 20px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #34c759;
+      border: 3px solid white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .timeline-item h4 { font-size: 1rem; color: #34c759; margin-bottom: 8px; }
+    .timeline-item ul { font-size: 0.9rem; margin: 0; padding-left: 20px; }
+    
+    .data-model {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px 0;
+    }
+    .data-model h4 {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+    .checklist li {
+      padding: 8px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+    .checklist li::before {
+      content: '☐';
+      position: absolute;
+      left: 0;
+      color: #999;
+    }
+    .checklist li.done::before {
+      content: '✓';
+      color: #34c759;
+    }
+    
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .grid-item {
+      background: #fafafa;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .grid-item h4 {
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #34c759;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      font-size: 0.9rem;
+    }
+    th { color: #666; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>✅ Habit Tracker PRD</h1>
+    <p>상세 기획서 · Flutter + Firebase</p>
+  </div>
+  
+  <div class="container">
+    
+    <div class="section">
+      <h2>1. 개요</h2>
+      <div class="highlight">
+        "복잡한 습관앱은 그만, 탭 한 번으로 체크"
+      </div>
+      
+      <h3>기술 스택</h3>
+      <div class="tech-stack">
+        <span class="tech-tag">Flutter 3.x</span>
+        <span class="tech-tag">Firebase Auth</span>
+        <span class="tech-tag">Firestore</span>
+        <span class="tech-tag">Riverpod 2.x</span>
+        <span class="tech-tag">go_router</span>
+        <span class="tech-tag">WidgetKit (iOS)</span>
+      </div>
+      
+      <h3>인증 전략</h3>
+      <p><strong>익명 시작 → 나중에 연결</strong></p>
+      <ol>
+        <li>앱 설치 시 Firebase 익명 로그인 자동 실행</li>
+        <li>회원가입 없이 바로 사용 가능</li>
+        <li>설정에서 Apple/Google 계정 연결 (데이터 유지)</li>
+      </ol>
+    </div>
+    
+    <div class="section">
+      <h2>2. 사용자 플로우</h2>
+      
+      <h3>온보딩 플로우</h3>
+      <div class="code-block">앱 설치 → 스플래시 → 온보딩 (3장) → 첫 습관 추가 → 메인 화면
+                                  ↓
+                        (Firebase 익명 로그인 자동)</div>
+      
+      <h3>일반 사용 플로우</h3>
+      <div class="code-block">앱 실행 → 메인 화면 → 탭하여 체크 → 자동 저장 (Firestore)
+    ↓
+위젯에서 바로 체크도 가능</div>
+    </div>
+    
+    <div class="section">
+      <h2>3. 화면 설계</h2>
+      
+      <h3>3.1 메인 화면 (홈)</h3>
+      <div class="screen-mockup">┌─────────────────────────────┐
+│  오늘의 습관          [+] [⚙] │
+│  2026년 2월 13일 금요일       │
+├─────────────────────────────┤
+│  ┌─────────────────────┐    │
+│  │ ✓ 물 2L 마시기    🔥7 │    │
+│  │   매일 · 완료!        │    │
+│  └─────────────────────┘    │
+│  ┌─────────────────────┐    │
+│  │ ○ 운동 30분       🔥3 │    │
+│  │   평일 · 저녁         │    │
+│  └─────────────────────┘    │
+│  ┌─────────────────────┐    │
+│  │ ○ 독서 20분      🔥12 │    │
+│  │   매일 · 밤           │    │
+│  └─────────────────────┘    │
+├─────────────────────────────┤
+│  📊 이번 주 달성률: 85%       │
+└─────────────────────────────┘</div>
+      
+      <h3>3.2 습관 추가 화면</h3>
+      <div class="screen-mockup">┌─────────────────────────────┐
+│  [취소]  새 습관 추가   [저장] │
+├─────────────────────────────┤
+│  습관 이름                    │
+│  ┌─────────────────────┐    │
+│  │ 물 2L 마시기          │    │
+│  └─────────────────────┘    │
+│                             │
+│  아이콘 선택                  │
+│  💧 🏃 📚 🧘 💪 🍎 💊 🛏️ ... │
+│                             │
+│  반복                        │
+│  ● 매일  ○ 평일  ○ 주말     │
+│  ○ 사용자 지정               │
+│                             │
+│  알림 (선택)                  │
+│  [────────○] 오전 7:00      │
+└─────────────────────────────┘</div>
+      
+      <h3>3.3 통계 화면</h3>
+      <div class="screen-mockup">┌─────────────────────────────┐
+│  [<] 2026년 2월        [>]  │
+├─────────────────────────────┤
+│     달성률 히트맵 캘린더        │
+│  월 화 수 목 금 토 일          │
+│  ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ 🟩          │
+│  🟩 🟩 🟩 🟩 🟩 🟨 🟩          │
+│  🟩 🟩 ⬜ ⬜ ⬜ ⬜ ⬜          │
+├─────────────────────────────┤
+│  이번 달 요약                 │
+│  ├ 총 달성: 42회              │
+│  ├ 달성률: 87%               │
+│  └ 최장 스트릭: 12일          │
+└─────────────────────────────┘</div>
+    </div>
+    
+    <div class="section">
+      <h2>4. 데이터 모델</h2>
+      
+      <h3>Firestore 구조</h3>
+      <div class="code-block">users/{userId}/
+  ├── profile/
+  │   └── settings (doc)
+  │       ├── dayStartHour: 5
+  │       └── theme: "system"
+  │
+  ├── habits/ (collection)
+  │   └── {habitId} (doc)
+  │       ├── name: "물 2L 마시기"
+  │       ├── icon: "💧"
+  │       ├── repeatType: "daily"
+  │       ├── reminderTime: "07:00"
+  │       ├── order: 0
+  │       └── createdAt: Timestamp
+  │
+  └── completions/ (collection)
+      └── {YYYY-MM-DD} (doc)
+          └── habits: { "habitId1": true, "habitId2": false }</div>
+      
+      <h3>Dart 모델</h3>
+      <div class="code-block">class Habit {
+  final String id;
+  final String name;
+  final String icon;
+  final RepeatType repeatType;
+  final List<int>? repeatDays;
+  final String? reminderTime;
+  final int order;
+  final DateTime createdAt;
+}
+
+enum RepeatType { daily, weekdays, weekends, custom }
+
+class DailyCompletion {
+  final String date; // YYYY-MM-DD
+  final Map<String, bool> habits;
+}</div>
+    </div>
+    
+    <div class="section">
+      <h2>5. 스트릭 로직</h2>
+      <div class="grid-2">
+        <div class="grid-item">
+          <h4>계산 규칙</h4>
+          <ul>
+            <li>연속으로 체크한 날 수</li>
+            <li>오늘 아직 안 했으면 어제까지 기준</li>
+            <li>하루 놓치면 스트릭 리셋</li>
+          </ul>
+        </div>
+        <div class="grid-item">
+          <h4>예외 처리</h4>
+          <ul>
+            <li>평일만 하는 습관 → 주말 제외</li>
+            <li>사용자 지정 요일 → 해당 요일만 계산</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>6. 개발 일정</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>Week 1: 기반 구축</h4>
+          <ul>
+            <li>Flutter 프로젝트 + Firebase 연동</li>
+            <li>Riverpod + go_router 셋업</li>
+            <li>데이터 모델 + Firestore CRUD</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <h4>Week 2: 핵심 UI</h4>
+          <ul>
+            <li>메인 화면 (습관 목록)</li>
+            <li>습관 추가/수정 화면</li>
+            <li>체크 기능 (애니메이션, 햅틱)</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <h4>Week 3: 부가 기능</h4>
+          <ul>
+            <li>통계 화면 (히트맵 캘린더)</li>
+            <li>설정 화면</li>
+            <li>다크모드</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <h4>Week 4: 마무리</h4>
+          <ul>
+            <li>온보딩</li>
+            <li>테스트 및 버그 수정</li>
+            <li>App Store 준비</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>7. 폴더 구조</h2>
+      <div class="code-block">lib/
+├── main.dart
+├── app.dart
+├── core/
+│   ├── constants/
+│   ├── theme/
+│   ├── router/
+│   └── utils/
+├── data/
+│   ├── models/
+│   ├── repositories/
+│   └── datasources/
+├── domain/
+│   ├── usecases/
+│   └── providers/
+└── presentation/
+    ├── screens/
+    │   ├── splash/
+    │   ├── onboarding/
+    │   ├── home/
+    │   ├── add_habit/
+    │   ├── statistics/
+    │   └── settings/
+    └── widgets/</div>
+    </div>
+    
+    <div class="section">
+      <h2>8. MVP 범위</h2>
+      <div class="grid-2">
+        <div class="grid-item">
+          <h4>✅ v1.0 포함</h4>
+          <ul class="checklist">
+            <li class="done">습관 CRUD</li>
+            <li class="done">오늘 체크/해제</li>
+            <li class="done">스트릭 표시</li>
+            <li class="done">Firebase 저장</li>
+            <li class="done">익명 로그인</li>
+            <li class="done">기본 통계</li>
+            <li class="done">다크모드</li>
+          </ul>
+        </div>
+        <div class="grid-item">
+          <h4>⏳ v1.1+ 예정</h4>
+          <ul class="checklist">
+            <li>iOS 위젯</li>
+            <li>Apple/Google 로그인</li>
+            <li>알림</li>
+            <li>데이터 내보내기</li>
+            <li>인앱결제</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>9. 핵심 의존성</h2>
+      <table>
+        <tr><th>패키지</th><th>용도</th></tr>
+        <tr><td>firebase_core</td><td>Firebase 초기화</td></tr>
+        <tr><td>firebase_auth</td><td>인증</td></tr>
+        <tr><td>cloud_firestore</td><td>데이터 저장</td></tr>
+        <tr><td>flutter_riverpod</td><td>상태관리</td></tr>
+        <tr><td>go_router</td><td>라우팅</td></tr>
+        <tr><td>intl</td><td>날짜 포맷</td></tr>
+        <tr><td>flutter_local_notifications</td><td>알림 (v1.1)</td></tr>
+      </table>
+    </div>
+    
+    <div style="text-align: center; padding: 20px;">
+      <a href="habit-tracker.html" class="back-link">← 요약 보기</a>
+      <a href="index.html" class="back-link" style="margin-left: 10px;">← 목록으로</a>
+    </div>
+  </div>
+</body>
+</html>
