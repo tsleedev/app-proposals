@@ -230,26 +230,22 @@
       </div>
       
       <h3>인증 전략</h3>
-      <p><strong>익명 시작 → 나중에 연결</strong></p>
+      <p><strong>첫 실행 시 Apple/Google 로그인 필수</strong></p>
       <ol>
-        <li>앱 설치 시 Firebase 익명 로그인 자동 실행</li>
-        <li>회원가입 없이 바로 사용 가능</li>
-        <li>설정에서 Apple/Google 계정 연결 (데이터 유지)</li>
+        <li>앱 실행 → 로그인 화면 표시</li>
+        <li>Apple 또는 Google 로그인 (1탭)</li>
+        <li>데이터 관리 깔끔 + 기기 변경 시 자동 복구</li>
       </ol>
     </div>
     
     <div class="section">
       <h2>2. 사용자 플로우</h2>
       
-      <h3>온보딩 플로우</h3>
-      <div class="code-block">앱 설치 → 스플래시 → 온보딩 (3장) → 첫 습관 추가 → 메인 화면
-                                  ↓
-                        (Firebase 익명 로그인 자동)</div>
+      <h3>첫 실행 플로우</h3>
+      <div class="code-block">앱 설치 → 스플래시 → 로그인 화면 → Apple/Google → 온보딩 → 메인</div>
       
-      <h3>일반 사용 플로우</h3>
-      <div class="code-block">앱 실행 → 메인 화면 → 탭하여 체크 → 자동 저장 (Firestore)
-    ↓
-위젯에서 바로 체크도 가능</div>
+      <h3>재실행 플로우</h3>
+      <div class="code-block">앱 실행 → 스플래시 → (자동 로그인) → 메인 화면 → 탭하여 체크</div>
     </div>
     
     <div class="section">
@@ -449,11 +445,11 @@ class DailyCompletion {
         <div class="grid-item">
           <h4>✅ v1.0 포함</h4>
           <ul class="checklist">
+            <li class="done">Apple/Google 로그인</li>
             <li class="done">습관 CRUD</li>
             <li class="done">오늘 체크/해제</li>
             <li class="done">스트릭 표시</li>
             <li class="done">Firebase 저장</li>
-            <li class="done">익명 로그인</li>
             <li class="done">기본 통계</li>
             <li class="done">다크모드</li>
           </ul>
@@ -462,7 +458,6 @@ class DailyCompletion {
           <h4>⏳ v1.1+ 예정</h4>
           <ul class="checklist">
             <li>iOS 위젯</li>
-            <li>Apple/Google 로그인</li>
             <li>알림</li>
             <li>데이터 내보내기</li>
             <li>인앱결제</li>
