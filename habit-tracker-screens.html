@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker - 화면 설계서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+    .hero {
+      background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+      padding: 50px 20px;
+      text-align: center;
+      color: white;
+    }
+    .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+    .hero p { font-size: 1rem; opacity: 0.9; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    
+    /* 플로우 다이어그램 */
+    .flow-section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .flow-section h2 {
+      font-size: 1.3rem;
+      color: #34c759;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 12px;
+    }
+    .flow-item {
+      background: white;
+      border: 2px solid #34c759;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    .flow-item.highlight {
+      background: #34c759;
+      color: white;
+    }
+    .flow-arrow {
+      color: #34c759;
+      font-size: 1.5rem;
+    }
+    
+    /* 화면 카드 */
+    .screens-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+    }
+    .screen-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .screen-header {
+      background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+      color: white;
+      padding: 20px;
+    }
+    .screen-header h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .screen-header p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .screen-body {
+      padding: 20px;
+    }
+    .screen-mockup {
+      background: #1a1a1a;
+      border-radius: 25px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+    .screen-inner {
+      background: #fff;
+      border-radius: 18px;
+      min-height: 400px;
+      overflow: hidden;
+    }
+    .screen-inner.dark {
+      background: #1c1c1e;
+      color: #fff;
+    }
+    
+    /* 공통 화면 요소 */
+    .status-bar {
+      height: 44px;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-bar.dark { color: #fff; }
+    .status-bar.light { color: #000; }
+    
+    .nav-bar {
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .nav-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .nav-btn {
+      color: #34c759;
+      font-size: 0.95rem;
+    }
+    
+    .content-area {
+      padding: 16px;
+    }
+    
+    /* 스플래시 */
+    .splash-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 350px;
+      background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+    }
+    .splash-icon {
+      font-size: 4rem;
+      margin-bottom: 15px;
+    }
+    .splash-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+    }
+    
+    /* 로그인 화면 */
+    .login-content {
+      display: flex;
+      flex-direction: column;
+      height: 400px;
+      padding: 40px 24px 30px;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .login-icon { font-size: 3rem; margin-bottom: 15px; }
+    .login-title { font-size: 1.5rem; font-weight: 700; color: #1d1d1f; margin-bottom: 8px; }
+    .login-subtitle { font-size: 0.9rem; color: #666; }
+    .login-buttons { margin-top: auto; }
+    .login-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .login-btn.apple { background: #000; color: #fff; }
+    .login-btn.google { background: #fff; border: 1px solid #ddd; color: #333; }
+    .login-terms {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #999;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+    .login-terms a { color: #34c759; }
+    
+    /* 온보딩 */
+    .onboarding-content {
+      display: flex;
+      flex-direction: column;
+      height: 400px;
+      padding: 30px 24px;
+      text-align: center;
+    }
+    .onboarding-image {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+    .onboarding-text h4 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #1d1d1f;
+    }
+    .onboarding-text p {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 25px;
+    }
+    .onboarding-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ddd;
+    }
+    .dot.active { background: #34c759; width: 24px; border-radius: 4px; }
+    .onboarding-btn {
+      background: #34c759;
+      color: white;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    
+    /* 메인 화면 */
+    .main-header {
+      padding: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .main-date {
+      font-size: 0.8rem;
+      color: #999;
+    }
+    .main-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 5px;
+    }
+    .main-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .main-actions {
+      display: flex;
+      gap: 15px;
+    }
+    .main-action { font-size: 1.3rem; }
+    
+    .habit-list {
+      padding: 12px 16px;
+    }
+    .habit-card {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      background: #f9f9f9;
+      border-radius: 14px;
+      margin-bottom: 10px;
+    }
+    .habit-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #34c759;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      font-size: 0.9rem;
+    }
+    .habit-check.done {
+      background: #34c759;
+      color: white;
+    }
+    .habit-info { flex: 1; }
+    .habit-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1d1d1f;
+    }
+    .habit-sub {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 2px;
+    }
+    .habit-streak {
+      font-size: 0.85rem;
+      color: #ff9500;
+      font-weight: 600;
+    }
+    
+    .week-summary {
+      margin: 10px 16px;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+      border-radius: 12px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .week-label { font-size: 0.85rem; }
+    .week-value { font-size: 1.3rem; font-weight: 700; }
+    
+    /* 습관 추가 */
+    .add-form { padding: 16px; }
+    .form-group { margin-bottom: 24px; }
+    .form-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .form-input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    .icon-grid {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .icon-item {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f5;
+      border-radius: 10px;
+      font-size: 1.3rem;
+    }
+    .icon-item.selected {
+      background: #e8f5e9;
+      border: 2px solid #34c759;
+    }
+    .repeat-options {
+      display: flex;
+      gap: 10px;
+    }
+    .repeat-btn {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .repeat-btn.selected {
+      background: #34c759;
+      color: white;
+      border-color: #34c759;
+    }
+    
+    /* 통계 */
+    .stats-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+    }
+    .stats-month {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .stats-nav {
+      display: flex;
+      gap: 20px;
+      color: #34c759;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      padding: 0 16px 16px;
+      text-align: center;
+    }
+    .cal-header {
+      font-size: 0.7rem;
+      color: #999;
+      padding: 5px;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    .cal-day.empty { background: transparent; }
+    .cal-day.low { background: #e8f5e9; }
+    .cal-day.mid { background: #a5d6a7; }
+    .cal-day.high { background: #34c759; color: white; }
+    
+    .stats-summary {
+      padding: 16px;
+      background: #f9f9f9;
+      margin: 0 16px;
+      border-radius: 12px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 0.9rem;
+    }
+    .stat-label { color: #666; }
+    .stat-value { font-weight: 600; color: #1d1d1f; }
+    
+    /* 설정 */
+    .settings-section {
+      padding: 16px;
+    }
+    .settings-group {
+      margin-bottom: 25px;
+    }
+    .settings-title {
+      font-size: 0.8rem;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+    .settings-list {
+      background: #f9f9f9;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .settings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+    }
+    .settings-item:last-child { border-bottom: none; }
+    .settings-label { font-size: 0.95rem; }
+    .settings-value { color: #999; font-size: 0.9rem; }
+    .settings-arrow { color: #ccc; }
+    .settings-item.danger .settings-label { color: #ff3b30; }
+    
+    /* 스펙 테이블 */
+    .spec-section {
+      margin-top: 20px;
+    }
+    .spec-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .spec-list {
+      font-size: 0.85rem;
+      color: #555;
+    }
+    .spec-list li {
+      margin-bottom: 6px;
+      padding-left: 15px;
+      position: relative;
+    }
+    .spec-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #34c759;
+    }
+    
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #34c759;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>📱 Habit Tracker 화면 설계서</h1>
+    <p>전체 플로우 + 화면별 상세 기획</p>
+  </div>
+  
+  <div class="container">
+    
+    <!-- 전체 플로우 -->
+    <div class="flow-section">
+      <h2>🔄 전체 화면 플로우</h2>
+      
+      <h4 style="text-align:center; color:#666; margin-bottom:15px;">첫 실행</h4>
+      <div class="flow-diagram">
+        <div class="flow-item">스플래시</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item highlight">로그인</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">온보딩 1</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">온보딩 2</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">온보딩 3</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item highlight">메인</div>
+      </div>
+      
+      <h4 style="text-align:center; color:#666; margin:25px 0 15px;">재실행</h4>
+      <div class="flow-diagram">
+        <div class="flow-item">스플래시</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">(로그인 체크)</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item highlight">메인</div>
+      </div>
+      
+      <h4 style="text-align:center; color:#666; margin:25px 0 15px;">메인 화면 기준 네비게이션</h4>
+      <div class="flow-diagram" style="flex-direction: column; gap: 15px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="flow-item highlight">메인</div>
+          <span class="flow-arrow">→</span>
+          <span style="color:#666">[+] 버튼</span>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">습관 추가</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="flow-item highlight">메인</div>
+          <span class="flow-arrow">→</span>
+          <span style="color:#666">[📊] 버튼</span>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">통계</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="flow-item highlight">메인</div>
+          <span class="flow-arrow">→</span>
+          <span style="color:#666">[⚙] 버튼</span>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">설정</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 화면 목록 -->
+    <div class="screens-grid">
+      
+      <!-- 1. 스플래시 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <h3>1. 스플래시</h3>
+          <p>앱 시작 화면 (1.5초)</p>
+        </div>
+        <div class="screen-body">
+          <div class="screen-mockup">
+            <div class="screen-inner">
+              <div class="splash-content">
+                <div class="splash-icon">✅</div>
+                <div class="splash-title">Habit</div>
+              </div>
+            </div>
+          </div>
+          <div class="spec-section">
+            <div class="spec-title">기능</div>
+            <ul class="spec-list">
+              <li>Firebase 초기화</li>
+              <li>로그인 상태 확인</li>
+              <li>로그인 O → 메인으로</li>
+              <li>로그인 X → 로그인 화면으로</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2. 로그인 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <h3>2. 로그인</h3>
+          <p>Apple/Google 계속하기</p>
+        </div>
+        <div class="screen-body">
+          <div class="screen-mockup">
+            <div class="screen-inner">
+              <div class="login-content">
+                <div class="login-header">
+                  <div class="login-icon">✅</div>
+                  <div class="login-title">Habit Tracker</div>
+                  <div class="login-subtitle">탭 한 번으로 습관 체크</div>
+                </div>
+                <div class="login-buttons">
+                  <div class="login-btn apple"> Apple로 계속하기</div>
+                  <div class="login-btn google">🔵 Google로 계속하기</div>
+                  <div class="login-terms">
+                    계속하면 <a href="#">이용약관</a> 및 <a href="#">개인정보처리방침</a>에<br>동의하는 것으로 간주합니다.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="spec-section">
+            <div class="spec-title">기능</div>
+            <ul class="spec-list">
+              <li>Apple Sign-In (필수)</li>
+              <li>Google Sign-In</li>
+              <li>첫 로그인 → 온보딩으로</li>
+              <li>재로그인 → 메인으로</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 3. 온보딩 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <h3>3. 온보딩 (3장)</h3>
+          <p>첫 로그인 시 1회만 표시</p>
+        </div>
+        <div class="screen-body">
+          <div class="screen-mockup">
+            <div class="screen-inner">
+              <div class="onboarding-content">
+                <div class="onboarding-image">🔥</div>
+                <div class="onboarding-text">
+                  <h4>스트릭으로 동기부여</h4>
+                  <p>연속 달성일이 쌓이면<br>포기하기 아까워져요</p>
+                </div>
+                <div class="onboarding-dots">
+                  <div class="dot"></div>
+                  <div class="dot active"></div>
+                  <div class="dot"></div>
+                </div>
+                <div class="onboarding-btn">다음</div>
+              </div>
+            </div>
+          </div>
+          <div class="spec-section">
+            <div class="spec-title">3장 구성</div>
+            <ul class="spec-list">
+              <li>1: "탭 한 번으로 습관 체크 ✓"</li>
+              <li>2: "스트릭으로 동기부여 🔥"</li>
+              <li>3: "지금 첫 습관을 만들어보세요"</li>
+              <li>마지막 → 메인 화면으로</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 4. 메인 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <h3>4. 메인 (홈)</h3>
+          <p>오늘의 습관 목록</p>
+        </div>
+        <div class="screen-body">
+          <div class="screen-mockup">
+            <div class="screen-inner">
+              <div class="status-bar light">
+                <span>9:41</span>
+                <span>📶 🔋</span>
+              </div>
+              <div class="main-header">
+                <div class="main-date">2026년 2월 13일 금요일</div>
+                <div class="main-title-row">
+                  <div class="main-title">오늘의 습관</div>
+                  <div class="main-actions">
+                    <span class="main-action">📊</span>
+                    <span class="main-action">➕</span>
+                    <span class="main-action">⚙️</span>
+                  </div>
+                </div>
+              </div>
+              <div class="habit-list">
+                <div class="habit-card">
+                  <div class="habit-check done">✓</div>
+                  <div class="habit-info">
+                    <div class="habit-name">💧 물 2L 마시기</div>
+                    <div class="habit-sub">매일</div>
+                  </div>
+                  <div class="habit-streak">🔥 7</div>
+                </div>
+                <div class="habit-card">
+                  <div class="habit-check"></div>
+                  <div class="habit-info">
+                    <div class="habit-name">🏃 운동 30분</div>
+                    <div class="habit-sub">평일</div>
+                  </div>
+                  <div class="habit-streak">🔥 3</div>
+                </div>
+                <div class="habit-card">
+                  <div class="habit-check"></div>
+                  <div class="habit-info">
+                    <div class="habit-name">📚 독서 20분</div>
+                    <div class="habit-sub">매일</div>
+                  </div>
+                  <div class="habit-streak">🔥 12</div>
+                </div>
+              </div>
+              <div class="week-summary">
+                <span class="week-label">이번 주 달성률</span>
+                <span class="week-value">85%</span>
+              </div>
+            </div>
+          </div>
+          <div class="spec-section">
+            <div class="spec-title">인터랙션</div>
+            <ul class="spec-list">
+              <li>카드 탭 → 체크/해제 (햅틱)</li>
+              <li>카드 롱프레스 → 수정/삭제</li>
+              <li>카드 스와이프 → 삭제</li>
+              <li>드래그 → 순서 변경</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 5. 습관 추가 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <h3>5. 습관 추가/수정</h3>
+          <p>새 습관 등록</p>
+        </div>
+        <div class="screen-body">
+          <div class="screen-mockup">
+            <div class="screen-inner">
+              <div class="status-bar light">
+                <span>9:41</span>
+                <span>📶 🔋</span>
+              </div>
+              <div class="nav-bar">
+                <span class="nav-btn">취소</span>
+                <span class="nav-title">새 습관</span>
+                <span class="nav-btn">저장</span>
+              </div>
+              <div class="add-form">
+                <div class="form-group">
+                  <label class="form-label">습관 이름</label>
+                  <input class="form-input" placeholder="예: 물 2L 마시기" value="물 2L 마시기">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">아이콘</label>
+                  <div class="icon-grid">
+                    <div class="icon-item selected">💧</div>
+                    <div class="icon-item">🏃</div>
+                    <div class="icon-item">📚</div>
+                    <div class="icon-item">🧘</div>
+                    <div class="icon-item">💪</div>
+                    <div class="icon-item">🍎</div>
+                    <div class="icon-item">💊</div>
+                    <div class="icon-item">🛏️</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">반복</label>
+                  <div class="repeat-options">
+                    <div class="repeat-btn selected">매일</div>
+                    <div class="repeat-btn">평일</div>
+                    <div class="repeat-btn">주말</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="spec-section">
+            <div class="spec-title">입력 항목</div>
+            <ul class="spec-list">
+              <li>습관 이름 (필수, 최대 30자)</li>
+              <li>아이콘 (이모지 선택)</li>
+              <li>반복: 매일/평일/주말/사용자지정</li>
+              <li>알림 시간 (선택, v1.1)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 6. 통계 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <h3>6. 통계</h3>
+          <p>월간 달성 현황</p>
+        </div>
+        <div class="screen-body">
+          <div class="screen-mockup">
+            <div class="screen-inner">
+              <div class="status-bar light">
+                <span>9:41</span>
+                <span>📶 🔋</span>
+              </div>
+              <div class="nav-bar">
+                <span class="nav-btn">←</span>
+                <span class="nav-title">통계</span>
+                <span></span>
+              </div>
+              <div class="stats-header">
+                <span class="stats-nav">◀</span>
+                <span class="stats-month">2026년 2월</span>
+                <span class="stats-nav">▶</span>
+              </div>
+              <div class="calendar-grid">
+                <div class="cal-header">월</div>
+                <div class="cal-header">화</div>
+                <div class="cal-header">수</div>
+                <div class="cal-header">목</div>
+                <div class="cal-header">금</div>
+                <div class="cal-header">토</div>
+                <div class="cal-header">일</div>
+                <div class="cal-day empty"></div>
+                <div class="cal-day empty"></div>
+                <div class="cal-day empty"></div>
+                <div class="cal-day empty"></div>
+                <div class="cal-day empty"></div>
+                <div class="cal-day empty"></div>
+                <div class="cal-day high">1</div>
+                <div class="cal-day high">2</div>
+                <div class="cal-day high">3</div>
+                <div class="cal-day mid">4</div>
+                <div class="cal-day high">5</div>
+                <div class="cal-day high">6</div>
+                <div class="cal-day mid">7</div>
+                <div class="cal-day high">8</div>
+                <div class="cal-day high">9</div>
+                <div class="cal-day high">10</div>
+                <div class="cal-day mid">11</div>
+                <div class="cal-day high">12</div>
+                <div class="cal-day low">13</div>
+                <div class="cal-day empty"></div>
+                <div class="cal-day empty"></div>
+              </div>
+              <div class="stats-summary">
+                <div class="stat-row">
+                  <span class="stat-label">총 달성</span>
+                  <span class="stat-value">42회</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">달성률</span>
+                  <span class="stat-value">87%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">최장 스트릭</span>
+                  <span class="stat-value">12일</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="spec-section">
+            <div class="spec-title">기능</div>
+            <ul class="spec-list">
+              <li>월 단위 히트맵 캘린더</li>
+              <li>달성률별 색상 강도</li>
+              <li>월간 요약 통계</li>
+              <li>습관별 달성률 (확장)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 7. 설정 -->
+      <div class="screen-card">
+        <div class="screen-header">
+          <h3>7. 설정</h3>
+          <p>앱 설정 및 계정 관리</p>
+        </div>
+        <div class="screen-body">
+          <div class="screen-mockup">
+            <div class="screen-inner">
+              <div class="status-bar light">
+                <span>9:41</span>
+                <span>📶 🔋</span>
+              </div>
+              <div class="nav-bar">
+                <span class="nav-btn">←</span>
+                <span class="nav-title">설정</span>
+                <span></span>
+              </div>
+              <div class="settings-section">
+                <div class="settings-group">
+                  <div class="settings-title">계정</div>
+                  <div class="settings-list">
+                    <div class="settings-item">
+                      <span class="settings-label">user@icloud.com</span>
+                    </div>
+                    <div class="settings-item danger">
+                      <span class="settings-label">로그아웃</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="settings-group">
+                  <div class="settings-title">일반</div>
+                  <div class="settings-list">
+                    <div class="settings-item">
+                      <span class="settings-label">하루 시작 시간</span>
+                      <span class="settings-value">오전 5시 ›</span>
+                    </div>
+                    <div class="settings-item">
+                      <span class="settings-label">다크모드</span>
+                      <span class="settings-value">시스템 ›</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="settings-group">
+                  <div class="settings-title">정보</div>
+                  <div class="settings-list">
+                    <div class="settings-item">
+                      <span class="settings-label">버전</span>
+                      <span class="settings-value">1.0.0</span>
+                    </div>
+                    <div class="settings-item">
+                      <span class="settings-label">개인정보처리방침</span>
+                      <span class="settings-value">›</span>
+                    </div>
+                    <div class="settings-item">
+                      <span class="settings-label">문의하기</span>
+                      <span class="settings-value">›</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="spec-section">
+            <div class="spec-title">설정 항목</div>
+            <ul class="spec-list">
+              <li>계정 정보 + 로그아웃</li>
+              <li>하루 시작 시간 (기본 5시)</li>
+              <li>다크모드 (시스템/라이트/다크)</li>
+              <li>개인정보처리방침, 문의</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- 요약 -->
+    <div class="flow-section" style="margin-top: 30px;">
+      <h2>📋 화면 요약</h2>
+      <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+        <tr style="background: #f5f5f5;">
+          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #34c759;">#</th>
+          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #34c759;">화면</th>
+          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #34c759;">목적</th>
+          <th style="padding: 12px; text-align: left; border-bottom: 2px solid #34c759;">우선순위</th>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">1</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">스플래시</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">앱 초기화, 로그인 체크</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">🔴 필수</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">2</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">로그인</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">Apple/Google 로그인</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">🔴 필수</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">3</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">온보딩</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">앱 소개 (첫 실행)</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">🟡 권장</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">4</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">메인 (홈)</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">습관 목록 + 체크</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">🔴 필수</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">5</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">습관 추가/수정</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">습관 CRUD</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">🔴 필수</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">6</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">통계</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">월간 달성 현황</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">🟡 권장</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px;">7</td>
+          <td style="padding: 12px;">설정</td>
+          <td style="padding: 12px;">계정, 테마, 정보</td>
+          <td style="padding: 12px;">🔴 필수</td>
+        </tr>
+      </table>
+    </div>
+    
+    <div style="text-align: center; padding: 30px;">
+      <a href="habit-tracker-prd.html" class="back-link">📋 PRD 보기</a>
+      <a href="index.html" class="back-link" style="margin-left: 10px;">← 목록으로</a>
+    </div>
+  </div>
+</body>
+</html>
