@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker - 기획서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+    .hero {
+      background: linear-gradient(135deg, #34c759 0%, #30d158 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+    .hero-icon { font-size: 4rem; margin-bottom: 20px; }
+    .hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+    .hero p { font-size: 1.2rem; opacity: 0.9; }
+    
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #34c759;
+    }
+    .section p { color: #666; margin-bottom: 15px; }
+    .section ul { padding-left: 20px; color: #444; }
+    .section li { margin-bottom: 10px; }
+    
+    .mockup {
+      background: #1d1d1f;
+      border-radius: 30px;
+      padding: 15px;
+      max-width: 280px;
+      margin: 30px auto;
+    }
+    .mockup-screen {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      min-height: 400px;
+    }
+    .mockup-header {
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 20px;
+    }
+    .mockup-header h3 { font-size: 1.1rem; color: #333; }
+    .mockup-header p { font-size: 0.8rem; color: #999; }
+    
+    .habit-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .habit-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #34c759;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .habit-check.done { background: #34c759; color: white; }
+    .habit-info h4 { font-size: 0.95rem; color: #333; }
+    .habit-info p { font-size: 0.75rem; color: #999; }
+    .streak { margin-left: auto; color: #ff9500; font-weight: 600; font-size: 0.85rem; }
+    
+    .widget-preview {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 20px;
+      color: white;
+      max-width: 170px;
+      margin: 20px auto;
+    }
+    .widget-preview h4 { font-size: 0.8rem; opacity: 0.8; margin-bottom: 10px; }
+    .widget-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .widget-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+    }
+    .widget-dot.done { background: #34c759; }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tech-tag {
+      background: #f0f0f5;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: #34c759;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #34c759;
+    }
+    .timeline-item h4 { font-size: 0.9rem; color: #333; }
+    .timeline-item p { font-size: 0.85rem; color: #666; }
+    
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #34c759;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    .back-link:hover { background: #2db84d; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-icon">✅</div>
+    <h1>Habit Tracker</h1>
+    <p>탭 한 번으로 습관 체크, 스트릭으로 동기부여</p>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+      <h2>💡 핵심 컨셉</h2>
+      <p><strong>"복잡한 습관앱은 그만, 체크만 하자"</strong></p>
+      <p>기존 습관 앱들의 문제: 기능이 너무 많고, 설정이 복잡하고, 결국 앱을 안 열게 됨.</p>
+      <p>Habit Tracker는 <strong>위젯에서 탭 한 번</strong>으로 끝. 앱을 열 필요도 없음.</p>
+    </div>
+    
+    <div class="section">
+      <h2>📱 앱 미리보기</h2>
+      <div class="mockup">
+        <div class="mockup-screen">
+          <div class="mockup-header">
+            <h3>오늘의 습관</h3>
+            <p>2026년 2월 13일 금요일</p>
+          </div>
+          <div class="habit-item">
+            <div class="habit-check done">✓</div>
+            <div class="habit-info">
+              <h4>물 2L 마시기</h4>
+              <p>매일 · 아침</p>
+            </div>
+            <span class="streak">🔥 7일</span>
+          </div>
+          <div class="habit-item">
+            <div class="habit-check done">✓</div>
+            <div class="habit-info">
+              <h4>운동 30분</h4>
+              <p>평일 · 저녁</p>
+            </div>
+            <span class="streak">🔥 3일</span>
+          </div>
+          <div class="habit-item">
+            <div class="habit-check"></div>
+            <div class="habit-info">
+              <h4>독서 20분</h4>
+              <p>매일 · 밤</p>
+            </div>
+            <span class="streak">🔥 12일</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>🔲 위젯 미리보기</h2>
+      <p>홈화면에서 바로 체크 가능한 인터랙티브 위젯</p>
+      <div class="widget-preview">
+        <h4>오늘의 습관</h4>
+        <div class="widget-grid">
+          <div class="widget-dot done"></div>
+          <div class="widget-dot done"></div>
+          <div class="widget-dot"></div>
+          <div class="widget-dot done"></div>
+          <div class="widget-dot"></div>
+          <div class="widget-dot"></div>
+        </div>
+      </div>
+      <p style="text-align: center; color: #666; font-size: 0.85rem;">Small (2x2) 위젯 · 탭하면 체크</p>
+    </div>
+    
+    <div class="section">
+      <h2>✨ 핵심 기능</h2>
+      <ul>
+        <li><strong>원탭 체크</strong> - 위젯에서 탭 한 번으로 완료</li>
+        <li><strong>스트릭 시스템</strong> - 연속 달성일 표시로 동기부여</li>
+        <li><strong>심플한 통계</strong> - 주간/월간 달성률 한눈에</li>
+        <li><strong>리마인더</strong> - 잊지 않게 알림 (선택)</li>
+        <li><strong>다크모드</strong> - iOS 시스템 설정 연동</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>🎯 타겟 유저</h2>
+      <ul>
+        <li>복잡한 습관앱에 지친 사람</li>
+        <li>위젯을 적극 활용하는 iOS 유저</li>
+        <li>미니멀한 UX를 선호하는 사람</li>
+        <li>습관 형성을 시작하려는 초보자</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>💰 수익 모델</h2>
+      <ul>
+        <li><strong>무료</strong>: 습관 3개, 기본 위젯</li>
+        <li><strong>프리미엄 (₩4,900/년)</strong>: 무제한 습관, 테마, 통계, iCloud 동기화</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>🛠 기술 스택</h2>
+      <div class="tech-stack">
+        <span class="tech-tag">Flutter 3.x</span>
+        <span class="tech-tag">Cupertino Widgets</span>
+        <span class="tech-tag">WidgetKit</span>
+        <span class="tech-tag">Local Notifications</span>
+        <span class="tech-tag">Hive (로컬 DB)</span>
+        <span class="tech-tag">RevenueCat</span>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>📅 개발 일정 (예상)</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>1주차: 기본 UI</h4>
+          <p>습관 목록, 추가/삭제, 체크 기능</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2주차: 위젯</h4>
+          <p>iOS 위젯 구현, 인터랙션</p>
+        </div>
+        <div class="timeline-item">
+          <h4>3주차: 알림 + 통계</h4>
+          <p>리마인더, 주간/월간 리포트</p>
+        </div>
+        <div class="timeline-item">
+          <h4>4주차: 다듬기</h4>
+          <p>다크모드, 애니메이션, 인앱결제</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>🏆 경쟁 앱 대비 차별점</h2>
+      <p><strong>vs Streaks</strong>: 더 저렴하고, 위젯 인터랙션 강화</p>
+      <p><strong>vs Habitify</strong>: 훨씬 심플함, 필수 기능만</p>
+      <p><strong>vs 기본 미리알림</strong>: 스트릭 시각화, 습관 특화 UX</p>
+    </div>
+    
+    <div style="text-align: center; padding: 20px;">
+      <a href="index.html" class="back-link">← 목록으로</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Quote - 기획서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+    .hero-icon { font-size: 4rem; margin-bottom: 20px; }
+    .hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+    .hero p { font-size: 1.2rem; opacity: 0.9; }
+    
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #1a1a2e;
+    }
+    .section p { color: #666; margin-bottom: 15px; }
+    .section ul { padding-left: 20px; color: #444; }
+    .section li { margin-bottom: 10px; }
+    
+    .quote-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 40px 30px;
+      color: white;
+      text-align: center;
+      max-width: 350px;
+      margin: 30px auto;
+    }
+    .quote-text {
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .quote-author {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    .widget-row {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .widget-small {
+      width: 155px;
+      height: 155px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 20px;
+      padding: 15px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    .widget-small .quote {
+      font-size: 0.75rem;
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .widget-small .author {
+      font-size: 0.65rem;
+      margin-top: 10px;
+      opacity: 0.8;
+    }
+    
+    .widget-medium {
+      width: 330px;
+      height: 155px;
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      border-radius: 20px;
+      padding: 25px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .widget-medium .quote {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .widget-medium .author {
+      font-size: 0.8rem;
+      margin-top: 15px;
+      opacity: 0.9;
+      text-align: right;
+    }
+    
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .category {
+      background: #f0f0f5;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    .mockup {
+      background: #1d1d1f;
+      border-radius: 30px;
+      padding: 15px;
+      max-width: 280px;
+      margin: 30px auto;
+    }
+    .mockup-screen {
+      background: #fefefe;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .mockup-quote {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      padding: 40px 25px;
+      text-align: center;
+    }
+    .mockup-quote .text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #333;
+      font-style: italic;
+    }
+    .mockup-quote .author {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .mockup-actions {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+    }
+    .mockup-action {
+      text-align: center;
+      color: #666;
+      font-size: 0.75rem;
+    }
+    .mockup-action .icon {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tech-tag {
+      background: #f0f0f5;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #1a1a2e;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    .back-link:hover { background: #0f0f1a; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-icon">💬</div>
+    <h1>Daily Quote</h1>
+    <p>매일 아침, 영감을 주는 한 마디</p>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+      <h2>💡 핵심 컨셉</h2>
+      <p><strong>"하루를 시작하는 한 줄의 힘"</strong></p>
+      <p>매일 아침 좋은 명언 하나로 하루를 시작. 위젯으로 홈화면에서, 알림으로 잠금화면에서.</p>
+      <p>단순한 명언앱이 아닌, <strong>일상에 스며드는 영감</strong>.</p>
+    </div>
+    
+    <div class="section">
+      <h2>✨ 오늘의 명언</h2>
+      <div class="quote-card">
+        <div class="quote-text">"완벽을 두려워하지 마라.<br>어차피 완벽해질 일은 없으니까."</div>
+        <div class="quote-author">— 살바도르 달리</div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>🔲 위젯 미리보기</h2>
+      <div class="widget-row">
+        <div class="widget-small">
+          <div class="quote">"시작이 반이다."</div>
+          <div class="author">— 아리스토텔레스</div>
+        </div>
+        <div class="widget-medium">
+          <div class="quote">"성공은 매일 반복한 작은 노력들의 합이다."</div>
+          <div class="author">— 로버트 콜리어</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>📱 앱 미리보기</h2>
+      <div class="mockup">
+        <div class="mockup-screen">
+          <div class="mockup-quote">
+            <div class="text">"실패는 성공의 어머니다.<br>포기만 하지 않으면<br>실패는 없다."</div>
+            <div class="author">— 정주영</div>
+          </div>
+          <div class="mockup-actions">
+            <div class="mockup-action">
+              <div class="icon">❤️</div>
+              <div>저장</div>
+            </div>
+            <div class="mockup-action">
+              <div class="icon">🔄</div>
+              <div>다른 명언</div>
+            </div>
+            <div class="mockup-action">
+              <div class="icon">📤</div>
+              <div>공유</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>✨ 핵심 기능</h2>
+      <ul>
+        <li><strong>매일 새 명언</strong> - 자정에 자동 갱신</li>
+        <li><strong>위젯</strong> - 홈화면에서 바로 확인</li>
+        <li><strong>아침 알림</strong> - 원하는 시간에 명언 푸시</li>
+        <li><strong>저장 & 컬렉션</strong> - 마음에 드는 명언 저장</li>
+        <li><strong>공유</strong> - 이미지로 SNS 공유</li>
+        <li><strong>테마</strong> - 다양한 배경 그라데이션</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>📚 명언 카테고리</h2>
+      <div class="categories">
+        <span class="category">💪 동기부여</span>
+        <span class="category">💼 성공/비즈니스</span>
+        <span class="category">❤️ 사랑/관계</span>
+        <span class="category">🧘 마음챙김</span>
+        <span class="category">📖 인문학</span>
+        <span class="category">🎨 창의성</span>
+        <span class="category">🇰🇷 한국 위인</span>
+        <span class="category">🌏 동양 철학</span>
+      </div>
+      <p style="margin-top: 15px;">선호 카테고리 설정 → 맞춤 명언 제공</p>
+    </div>
+    
+    <div class="section">
+      <h2>🎯 타겟 유저</h2>
+      <ul>
+        <li>아침 루틴이 있는 사람</li>
+        <li>자기계발에 관심 있는 사람</li>
+        <li>SNS에 명언 공유하는 사람</li>
+        <li>심플한 위젯을 원하는 사람</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>💰 수익 모델</h2>
+      <ul>
+        <li><strong>무료</strong>: 매일 1개 명언, 기본 위젯, 광고</li>
+        <li><strong>프리미엄 (₩2,900/년)</strong>: 광고 제거, 무제한 새로고침, 프리미엄 테마, 오프라인 저장</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>🛠 기술 스택</h2>
+      <div class="tech-stack">
+        <span class="tech-tag">Flutter 3.x</span>
+        <span class="tech-tag">Cupertino Widgets</span>
+        <span class="tech-tag">WidgetKit</span>
+        <span class="tech-tag">Local Notifications</span>
+        <span class="tech-tag">Firebase (명언 DB)</span>
+        <span class="tech-tag">AdMob</span>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>📅 개발 일정 (예상)</h2>
+      <ul>
+        <li><strong>1주차</strong>: 명언 DB 구축, 기본 UI</li>
+        <li><strong>2주차</strong>: 위젯, 알림</li>
+        <li><strong>3주차</strong>: 저장, 공유, 테마</li>
+        <li><strong>4주차</strong>: 광고, 인앱결제, 마무리</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>📊 시장성</h2>
+      <p><strong>명언/영감 앱 시장</strong>은 꾸준한 수요가 있음:</p>
+      <ul>
+        <li>App Store "명언" 검색 시 상위 앱들 수백만 다운로드</li>
+        <li>인스타그램 #명언 해시태그 수천만 게시물</li>
+        <li>차별점: <strong>위젯 특화 + 깔끔한 iOS 네이티브 UX</strong></li>
+      </ul>
+    </div>
+    
+    <div style="text-align: center; padding: 20px;">
+      <a href="index.html" class="back-link">← 목록으로</a>
+    </div>
+  </div>
+</body>
+</html>

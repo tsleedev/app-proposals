@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>앱 기획서 - Olly's Proposals</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .card h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 10px;
+    }
+    .card p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .card .tag {
+      display: inline-block;
+      background: #f0f0f5;
+      color: #667eea;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 15px;
+    }
+    .footer {
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📱 앱 기획서</h1>
+    <p class="subtitle">Flutter + iOS Native 느낌의 미니멀 앱 제안</p>
+    
+    <div class="cards">
+      <a href="habit-tracker.html" class="card">
+        <div class="card-icon">✅</div>
+        <h2>Habit Tracker</h2>
+        <p>홈화면에서 탭 한 번으로 습관 체크. 스트릭으로 동기부여.</p>
+        <span class="tag">위젯 지원</span>
+      </a>
+      
+      <a href="minimal-memo.html" class="card">
+        <div class="card-icon">📝</div>
+        <h2>Minimal Memo</h2>
+        <p>iOS 메모앱보다 더 심플하게. 빠른 메모, 빠른 검색.</p>
+        <span class="tag">iCloud 동기화</span>
+      </a>
+      
+      <a href="dday-widget.html" class="card">
+        <div class="card-icon">📅</div>
+        <h2>D-Day Widget</h2>
+        <p>기념일, 목표일까지 카운트다운. 위젯으로 항상 확인.</p>
+        <span class="tag">위젯 전용</span>
+      </a>
+      
+      <a href="daily-quote.html" class="card">
+        <div class="card-icon">💬</div>
+        <h2>Daily Quote</h2>
+        <p>매일 아침 영감을 주는 명언. 위젯과 알림으로 전달.</p>
+        <span class="tag">알림 지원</span>
+      </a>
+    </div>
+    
+    <p class="footer">Made with 🦀 by Olly · 2026.02.13</p>
+  </div>
+</body>
+</html>

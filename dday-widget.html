@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D-Day Widget - 기획서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+    .hero {
+      background: linear-gradient(135deg, #5856d6 0%, #af52de 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+    .hero-icon { font-size: 4rem; margin-bottom: 20px; }
+    .hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+    .hero p { font-size: 1.2rem; opacity: 0.9; }
+    
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #5856d6;
+    }
+    .section p { color: #666; margin-bottom: 15px; }
+    .section ul { padding-left: 20px; color: #444; }
+    .section li { margin-bottom: 10px; }
+    
+    .widgets-showcase {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    
+    .widget {
+      border-radius: 20px;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    .widget-small {
+      width: 155px;
+      height: 155px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+    }
+    .widget-medium {
+      width: 330px;
+      height: 155px;
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .widget-large {
+      width: 330px;
+      height: 330px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .widget .label {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      margin-bottom: 5px;
+    }
+    .widget .title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .widget .days {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .widget .days-label {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+    
+    .widget-medium .item {
+      text-align: center;
+    }
+    .widget-medium .days { font-size: 2rem; }
+    
+    .widget-large .list {
+      margin-top: 20px;
+      text-align: left;
+      padding: 0 10px;
+    }
+    .widget-large .list-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.85rem;
+    }
+    .widget-large .list-item:last-child { border-bottom: none; }
+    
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .use-case {
+      background: #fafafa;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    .use-case .icon { font-size: 2rem; margin-bottom: 10px; }
+    .use-case h4 { font-size: 0.9rem; color: #333; }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tech-tag {
+      background: #f0f0f5;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #5856d6;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    .back-link:hover { background: #4a48c7; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-icon">📅</div>
+    <h1>D-Day Widget</h1>
+    <p>기념일, 목표일까지 매일 카운트다운</p>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+      <h2>💡 핵심 컨셉</h2>
+      <p><strong>"홈화면에서 매일 확인하는 카운트다운"</strong></p>
+      <p>중요한 날까지 남은 일수를 항상 보여주는 위젯. 기념일, 시험, 여행, 목표일... 뭐든 카운트다운.</p>
+      <p><strong>위젯이 메인</strong>인 앱. 앱은 설정용, 위젯이 핵심.</p>
+    </div>
+    
+    <div class="section">
+      <h2>🔲 위젯 미리보기</h2>
+      <div class="widgets-showcase">
+        <div class="widget widget-small">
+          <div class="label">다가오는 날</div>
+          <div class="title">결혼기념일 💍</div>
+          <div class="days">D-23</div>
+          <div class="days-label">3월 8일</div>
+        </div>
+        
+        <div class="widget widget-medium">
+          <div class="item">
+            <div class="label">🎂 윤솔 생일</div>
+            <div class="days">D-128</div>
+          </div>
+          <div class="item">
+            <div class="label">✈️ 일본 여행</div>
+            <div class="days">D-45</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="widgets-showcase">
+        <div class="widget widget-large">
+          <div class="title" style="font-size: 1.1rem;">📌 다가오는 일정</div>
+          <div class="list">
+            <div class="list-item">
+              <span>💍 결혼기념일</span>
+              <span>D-23</span>
+            </div>
+            <div class="list-item">
+              <span>✈️ 일본 여행</span>
+              <span>D-45</span>
+            </div>
+            <div class="list-item">
+              <span>🎂 승재 생일</span>
+              <span>D-29</span>
+            </div>
+            <div class="list-item">
+              <span>🏃 마라톤 대회</span>
+              <span>D-67</span>
+            </div>
+            <div class="list-item">
+              <span>🎄 크리스마스</span>
+              <span>D-315</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>✨ 핵심 기능</h2>
+      <ul>
+        <li><strong>다양한 위젯</strong> - Small, Medium, Large 모두 지원</li>
+        <li><strong>커스텀 테마</strong> - 이벤트별 색상/그라데이션 설정</li>
+        <li><strong>이모지 아이콘</strong> - 직관적인 이벤트 구분</li>
+        <li><strong>D+/D- 전환</strong> - 지난 날도 카운트 (사귄 지 1000일!)</li>
+        <li><strong>반복 이벤트</strong> - 매년 돌아오는 기념일 자동 갱신</li>
+        <li><strong>알림</strong> - D-7, D-1, 당일 알림</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>🎯 활용 사례</h2>
+      <div class="use-cases">
+        <div class="use-case">
+          <div class="icon">💑</div>
+          <h4>기념일</h4>
+        </div>
+        <div class="use-case">
+          <div class="icon">🎂</div>
+          <h4>생일</h4>
+        </div>
+        <div class="use-case">
+          <div class="icon">📚</div>
+          <h4>시험/자격증</h4>
+        </div>
+        <div class="use-case">
+          <div class="icon">✈️</div>
+          <h4>여행</h4>
+        </div>
+        <div class="use-case">
+          <div class="icon">🎯</div>
+          <h4>목표 달성일</h4>
+        </div>
+        <div class="use-case">
+          <div class="icon">👶</div>
+          <h4>출산 예정일</h4>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>💰 수익 모델</h2>
+      <ul>
+        <li><strong>무료</strong>: 이벤트 3개, 기본 테마</li>
+        <li><strong>프로 (₩2,900 1회)</strong>: 무제한 이벤트, 프리미엄 테마, iCloud 동기화</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>🛠 기술 스택</h2>
+      <div class="tech-stack">
+        <span class="tech-tag">Flutter 3.x</span>
+        <span class="tech-tag">WidgetKit</span>
+        <span class="tech-tag">Cupertino Widgets</span>
+        <span class="tech-tag">Local Notifications</span>
+        <span class="tech-tag">Hive</span>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>📅 개발 일정 (예상)</h2>
+      <ul>
+        <li><strong>1주차</strong>: 이벤트 CRUD, 기본 UI</li>
+        <li><strong>2주차</strong>: 위젯 3종 (Small/Medium/Large)</li>
+        <li><strong>3주차</strong>: 테마, 알림</li>
+        <li><strong>4주차</strong>: iCloud 동기화, 인앱결제</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>🏆 Widget Calendar 시너지</h2>
+      <p>태수님의 Widget Calendar와 <strong>교차 프로모션</strong> 가능:</p>
+      <ul>
+        <li>Widget Calendar 유저에게 D-Day Widget 추천</li>
+        <li>D-Day Widget 유저에게 Widget Calendar 추천</li>
+        <li>같은 디자인 언어로 "위젯 시리즈" 브랜딩</li>
+      </ul>
+    </div>
+    
+    <div style="text-align: center; padding: 20px;">
+      <a href="index.html" class="back-link">← 목록으로</a>
+    </div>
+  </div>
+</body>
+</html>

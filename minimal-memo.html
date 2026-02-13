@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Memo - 기획서</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+    .hero {
+      background: linear-gradient(135deg, #ff9500 0%, #ff6b00 100%);
+      padding: 60px 20px;
+      text-align: center;
+      color: white;
+    }
+    .hero-icon { font-size: 4rem; margin-bottom: 20px; }
+    .hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+    .hero p { font-size: 1.2rem; opacity: 0.9; }
+    
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    
+    .section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #ff9500;
+    }
+    .section p { color: #666; margin-bottom: 15px; }
+    .section ul { padding-left: 20px; color: #444; }
+    .section li { margin-bottom: 10px; }
+    
+    .mockup {
+      background: #1d1d1f;
+      border-radius: 30px;
+      padding: 15px;
+      max-width: 280px;
+      margin: 30px auto;
+    }
+    .mockup-screen {
+      background: #fefefe;
+      border-radius: 20px;
+      padding: 15px;
+      min-height: 400px;
+    }
+    .search-bar {
+      background: #f2f2f7;
+      border-radius: 10px;
+      padding: 10px 15px;
+      color: #8e8e93;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+    .memo-item {
+      padding: 15px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .memo-item:last-child { border-bottom: none; }
+    .memo-item h4 {
+      font-size: 0.95rem;
+      color: #1d1d1f;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .memo-item p {
+      font-size: 0.8rem;
+      color: #8e8e93;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .memo-date {
+      font-size: 0.75rem;
+      color: #aeaeb2;
+      margin-top: 5px;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    .feature-item {
+      background: #fafafa;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    .feature-item .icon { font-size: 2rem; margin-bottom: 10px; }
+    .feature-item h4 { font-size: 0.9rem; color: #333; margin-bottom: 5px; }
+    .feature-item p { font-size: 0.8rem; color: #888; margin: 0; }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tech-tag {
+      background: #f0f0f5;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .comparison-col h4 {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .comparison-col.bad h4 { color: #ff3b30; }
+    .comparison-col.good h4 { color: #34c759; }
+    .comparison-col ul {
+      font-size: 0.85rem;
+      padding-left: 18px;
+    }
+    
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #ff9500;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+    .back-link:hover { background: #e68600; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-icon">📝</div>
+    <h1>Minimal Memo</h1>
+    <p>iOS 메모앱보다 더 심플하게</p>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+      <h2>💡 핵심 컨셉</h2>
+      <p><strong>"열자마자 바로 쓰기"</strong></p>
+      <p>iOS 기본 메모앱도 사실 무겁다. 폴더, 태그, 체크리스트, 스캔, 그림... 기능은 많은데 정작 메모할 때 방해됨.</p>
+      <p>Minimal Memo는 <strong>앱 열면 바로 커서</strong>. 쓰고 닫으면 자동 저장. 끝.</p>
+    </div>
+    
+    <div class="section">
+      <h2>📱 앱 미리보기</h2>
+      <div class="mockup">
+        <div class="mockup-screen">
+          <div class="search-bar">🔍 메모 검색...</div>
+          <div class="memo-item">
+            <h4>회의 내용 정리</h4>
+            <p>Q1 목표: DAU 20% 증가, 신규 기능 3개 출시...</p>
+            <div class="memo-date">오늘 오후 2:30</div>
+          </div>
+          <div class="memo-item">
+            <h4>장보기 목록</h4>
+            <p>우유, 계란, 식빵, 바나나, 요거트...</p>
+            <div class="memo-date">어제</div>
+          </div>
+          <div class="memo-item">
+            <h4>아이디어 💡</h4>
+            <p>습관 앱인데 위젯에서 바로 체크할 수 있으면...</p>
+            <div class="memo-date">2월 10일</div>
+          </div>
+          <div class="memo-item">
+            <h4>승재 어린이집</h4>
+            <p>준비물: 여분 옷, 물통, 낮잠 이불...</p>
+            <div class="memo-date">2월 8일</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>✨ 핵심 기능</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="icon">⚡</div>
+          <h4>즉시 작성</h4>
+          <p>앱 열면 바로 새 메모</p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">🔍</div>
+          <h4>빠른 검색</h4>
+          <p>전문 검색, 한글 초성 지원</p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">☁️</div>
+          <h4>iCloud 동기화</h4>
+          <p>모든 기기에서 동일하게</p>
+        </div>
+        <div class="feature-item">
+          <div class="icon">🌙</div>
+          <h4>다크모드</h4>
+          <p>눈이 편한 야간 모드</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>🚫 의도적으로 뺀 것</h2>
+      <div class="comparison">
+        <div class="comparison-col bad">
+          <h4>❌ 없는 기능</h4>
+          <ul>
+            <li>폴더/태그 분류</li>
+            <li>체크리스트</li>
+            <li>이미지/파일 첨부</li>
+            <li>손글씨/스캔</li>
+            <li>공유/협업</li>
+          </ul>
+        </div>
+        <div class="comparison-col good">
+          <h4>✓ 있는 기능 (이것만)</h4>
+          <ul>
+            <li>텍스트 메모</li>
+            <li>검색</li>
+            <li>자동 저장</li>
+            <li>iCloud 동기화</li>
+            <li>다크모드</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top: 20px; font-size: 0.9rem;">👉 기능을 빼는 것도 디자인이다. 복잡함을 원하면 iOS 메모앱 쓰면 됨.</p>
+    </div>
+    
+    <div class="section">
+      <h2>🎯 타겟 유저</h2>
+      <ul>
+        <li>빠르게 메모하고 싶은 사람</li>
+        <li>iOS 메모앱이 무겁다고 느끼는 사람</li>
+        <li>정리보다 기록이 중요한 사람</li>
+        <li>미니멀리스트</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>💰 수익 모델</h2>
+      <ul>
+        <li><strong>무료</strong>: 메모 50개, 로컬 저장</li>
+        <li><strong>프로 (₩3,900 1회)</strong>: 무제한 메모, iCloud 동기화, 테마</li>
+      </ul>
+      <p style="margin-top: 15px; font-size: 0.9rem;">💡 구독 아닌 <strong>일회성 결제</strong>로 차별화. "구독 피로" 유저 공략.</p>
+    </div>
+    
+    <div class="section">
+      <h2>🛠 기술 스택</h2>
+      <div class="tech-stack">
+        <span class="tech-tag">Flutter 3.x</span>
+        <span class="tech-tag">Cupertino Widgets</span>
+        <span class="tech-tag">CloudKit (iCloud)</span>
+        <span class="tech-tag">SQLite</span>
+        <span class="tech-tag">RevenueCat</span>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>📅 개발 일정 (예상)</h2>
+      <ul>
+        <li><strong>1주차</strong>: 메모 CRUD, 기본 UI</li>
+        <li><strong>2주차</strong>: 검색, 자동저장, 애니메이션</li>
+        <li><strong>3주차</strong>: iCloud 동기화</li>
+        <li><strong>4주차</strong>: 다크모드, 인앱결제, 마무리</li>
+      </ul>
+    </div>
+    
+    <div class="section">
+      <h2>🏆 포지셔닝</h2>
+      <p><strong>"메모앱의 iPhone SE"</strong></p>
+      <p>최신 기능 다 빼고 핵심만. 단순함을 원하는 유저에게 확실한 선택지.</p>
+    </div>
+    
+    <div style="text-align: center; padding: 20px;">
+      <a href="index.html" class="back-link">← 목록으로</a>
+    </div>
+  </div>
+</body>
+</html>
